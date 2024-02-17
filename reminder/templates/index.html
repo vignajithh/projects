@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="bg-dark d-flex p-2">
+        <div class="text-white">TodoApp</div>
+        <div class="ms-auto"><a href="{%url 'signin'%}" class="btn btn-outline-warning">logout</a></div>
+    </nav>
+
+    <div class="mb-3">Welcome {{request.user}}</div>
+   <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        {%if form.erros%}
+        {%for f in form%}
+        <div class="text-danger">
+            <ul>
+                <li>{{f.errors}}</li>
+            </ul>
+        </div>
+        {%endfor%}
+        {%endif%}
+       <div class="d-flex justify-content-center">
+        <h1>Todo List</h1>
+       </div>
+
+        <div class="conatner mt-4">
+            <form action="" method="post">
+                {%csrf_token%}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Task name" aria-label="Recipient's username" aria-describedby="button-addon2" name="name">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">ADD</button>
+                  </div>
+               
+    
+            </form>
+            
+    </div>
+    <div class="col-3"></div>
+   </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+
+            {%for t in data%}
+            <div class="alert alert-primary margin-left" role="alert">
+                
+                <div class="row">
+                    <div class="col-4">
+                       {%if t.status == True%}
+                       <span class="text-decoration-line-through">{{t}}</span>
+                       {%else%}
+                       <span>{{t}}</span>
+                    
+                       {%endif%}
+                       
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        
+              
+               <a href="{%url 'todo-change' t.id%}">Edit</i></a>
+               
+               
+                <a href="{%url 'todo-delete' t.id%}">Delete</a>
+                    </div>
+                </div>
+              
+              </div>
+            {%endfor%}
+        </div>
+        
+        <div class="col-3"></div>
+    </div>
+</div>
+       
+    </div>
+    
+</body>
+</html>
